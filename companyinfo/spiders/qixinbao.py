@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 import urllib
-
+from companyinfo.items import CompanyinfoItem
 import scrapy
 
 
 class QixinbaoSpider(scrapy.Spider):
-    cookie = 'acw_tc=2f624a5615707693004962356e0a1789d82b20f65cc8c5f95024decfe87d6d; channel=%2Bbaidusem8; cookieShowLoginTip=2; Hm_lvt_52d64b8d3f6d42a2e416d59635df3f71=1571016421,1571018903,1571024473,1571024511; sid=s%3Acgp9FWrNHbl5fbKxMln3R9ClU35_5er6.UrmFCeFoVhRo6QboVL1PPPNQSl14YTIH5d%2B4edGBYzE; Hm_lpvt_52d64b8d3f6d42a2e416d59635df3f71=1571036295'
+    cookie = 'acw_tc=707c9fdb15710509288834359e54c6057047891e03cbb554e69db2c9fd791d; channel=%2Bbaidusem17; Hm_lvt_52d64b8d3f6d42a2e416d59635df3f71=1571050927; Hm_lpvt_52d64b8d3f6d42a2e416d59635df3f71=1571052800; sid=s%3A5zX7X9rzI7wcIjvPmB3BaGfxNml6PFRc.tL%2B%2BQ1GOQOQFrZqwZnQom7Z9928lxFadVD9zHy2VdQU'
     headers = {
         'Host': 'www.qixin.com',
-        'User-Agent': r'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3314.0 Safari/537.36 SE 2.X MetaSr 1.0',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:69.0) Gecko/20100101 Firefox/69.0',
         'Cookie': cookie
     }
 
@@ -18,7 +18,7 @@ class QixinbaoSpider(scrapy.Spider):
 
     def start_requests(self):
         # 查询公司
-        f = open('E://python_work/companyinfo/companyinfo/company_list.txt', 'r', encoding='utf-8')
+        f = open('D://work_project/python_work/companyinfo/companyinfo/company_list.txt', 'r', encoding='utf-8')
         for link in f:
             company = urllib.parse.quote(link).replace('\n', '')
             url = self.start_urls[0] + company
@@ -28,7 +28,48 @@ class QixinbaoSpider(scrapy.Spider):
 
     def parse(self, response):
         # 提取列表中第一个公司，进入该页
-        link = response.xpath('/html/body/div[2]/div[3]/div/div[1]/div[3]/div[2]/div[1]/div[2]/div[1]/div[1]/a/@href').extract_first()
+        link = response.css('.company-title a::attr(href)').extract()
         detail_link = response.urljoin(link)
         print(detail_link)
-        yield scrapy.Request(detail_link, headers=self.headers, callback=self.page_parse)
+        yield scrapy.Request(detail_link, headers=self.headers, callback=self.detail)
+
+    def detail(self, response):
+        items = CompanyinfoItem()
+
+        licence_pro = response.xpath('/html/body/div[5]/div/div[1]/div[1]/table/tbody/tr[3]/td[2]//text()').extract()[0]
+        items['licence_pro'] = licence_pro.strip().replace('\n', '')
+
+        yield items
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
