@@ -18,7 +18,7 @@ class QixinbaoSpider(scrapy.Spider):
 
     def start_requests(self):
         # 查询公司
-        f = open('D://work_project/python_work/companyinfo/companyinfo/company_list.txt', 'r', encoding='utf-8')
+        f = open('./company_list.txt', 'r', encoding='utf-8')
         for link in f:
             company = urllib.parse.quote(link).replace('\n', '')
             url = self.start_urls[0] + company
