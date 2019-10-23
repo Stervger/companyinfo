@@ -9,6 +9,7 @@ import scrapy
 
 
 class CompanyinfoItem(scrapy.Item):
+    #基本信息
     dc_id = scrapy.Field()  # 主键
     data_version_id = scrapy.Field()  # 版本
     licence_pro = scrapy.Field()  # 许可经营项目
@@ -95,3 +96,47 @@ class CompanyinfoItem(scrapy.Item):
     liquidation_valu_method = scrapy.Field()  # 清算财产计价方法
     liquidation_cost = scrapy.Field()  # 清算费用
     datachange_lasttime = scrapy.Field()  # 获取时间
+
+##########################################################################
+    #商标（trademark）
+    trademark_image_url = scrapy.Field()  # 商标图片链接
+    trademark_name = scrapy.Field()  # 商标名称
+    trademark_status = scrapy.Field()  # 商标状态
+    trademark_apply_date = scrapy.Field()  # 商标申请时间
+    trademark_reg_no = scrapy.Field()  # 商标注册号
+    trademark_type_no = scrapy.Field()  # 商标分类码
+    trademark_type_name = scrapy.Field()  # 商标分类名
+    trademark_apply_name = scrapy.Field()  # 商标申请人名称
+    trademark_first_trial_date = scrapy.Field()  # 商标初审公告日期
+    trademark_reg_date = scrapy.Field()  # 商标注册公告日
+    trademark_period = scrapy.Field()  # 商标专用期限
+    trademark_agent = scrapy.Field()  # 商标代理机构信息
+    trademark_products_name = scrapy.Field()  # 商标产品服务列表名
+
+############################################################################
+    #专利（patent）
+    patent_name = scrapy.Field()  # 专利名称
+    patent_type = scrapy.Field()  # 专利类型
+    patent_apply_date = scrapy.Field()  # 申请日期
+    patent_id = scrapy.Field()  # 专利
+    patent_apply_no = scrapy.Field()  # 专利申请号
+    patent_auth_date = scrapy.Field()  # 专利授权公布日
+    patent_auth_no = scrapy.Field()  # 专利授权号
+    patent_status = scrapy.Field()  # 专利法律状态
+
+#############################################################################
+    #著作权（copyright）
+    # source_type = scrapy.Field()  # 0,一般著作权;1,软件著作权
+    copyright_id = scrapy.Field()  # 著作ID
+    copyright_reg_no = scrapy.Field()  # 著作注册号
+    copyright_firm = scrapy.Field()  # 著作持有企业
+    copyright_version = scrapy.Field()  # 版本号
+    copyright_type = scrapy.Field()  # 著作类型
+    copyright_name = scrapy.Field()  # 著作名称
+    copyright_type_name = scrapy.Field()  # 著作类型名称
+    copyright_success_date = scrapy.Field()  # 著作完成时间
+    copyright_approval_date = scrapy.Field()  # 著作批准时间
+    copyright_related_companies = scrapy.Field()  # 著作相关公司
+    copyright_short_name = scrapy.Field()  # 著作简称
+    copyright_last_alt_time = scrapy.Field()  # 著作最后更新时间
+    copyright_type_no = scrapy.Field()  # 著作分类号
