@@ -99,19 +99,19 @@ class CompanyinfoItem(scrapy.Item):
 
 ##########################################################################
     #商标（trademark）
-    trademark_image_url = scrapy.Field()  # 商标图片链接
-    trademark_name = scrapy.Field()  # 商标名称
-    trademark_status = scrapy.Field()  # 商标状态
-    trademark_apply_date = scrapy.Field()  # 商标申请时间
-    trademark_reg_no = scrapy.Field()  # 商标注册号
-    trademark_type_no = scrapy.Field()  # 商标分类码
-    trademark_type_name = scrapy.Field()  # 商标分类名
-    trademark_apply_name = scrapy.Field()  # 商标申请人名称
-    trademark_first_trial_date = scrapy.Field()  # 商标初审公告日期
-    trademark_reg_date = scrapy.Field()  # 商标注册公告日
-    trademark_period = scrapy.Field()  # 商标专用期限
-    trademark_agent = scrapy.Field()  # 商标代理机构信息
-    trademark_products_name = scrapy.Field()  # 商标产品服务列表名
+    商标 = scrapy.Field()
+    商标图片 = scrapy.Field()# 商标图片链接
+    商标名称 = scrapy.Field()  # 商标名称
+    商标状态 = scrapy.Field()  # 商标状态
+    申请日 = scrapy.Field()  # 商标申请时间
+    商标注册号 = scrapy.Field()  # 商标注册号
+    商标类别 = scrapy.Field()  # 商标类别
+    申请人 = scrapy.Field()  # 商标申请人
+    初审公告日 = scrapy.Field()  # 商标初审公告日期
+    注册公告日 = scrapy.Field()  # 商标注册公告日
+    专用期限 = scrapy.Field()  # 商标专用期限
+    专利代理机构 = scrapy.Field()  # 商标代理机构信息
+    商品服务项目 = scrapy.Field()  # 商标产品服务列表名
 
 ############################################################################
     #专利（patent）

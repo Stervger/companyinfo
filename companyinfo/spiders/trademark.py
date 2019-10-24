@@ -10,55 +10,53 @@ class TrademarkSpider(scrapy.Spider):
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:69.0) Gecko/20100101 Firefox/69.0',
     }
     name = 'trademark'
-
-    def start_requests(self):
-        url = 'https://www.qixin.com/ability/60214084-2b87-4ea3-9131-e4c313deacf0'
-        drive = webdriver.Firefox()
-        drive.get("https://www.qixin.com/ability/60214084-2b87-4ea3-9131-e4c313deacf0")
-        # print(drive.find_element_by_xpath('//table[@class="table table-bordered margin-t-1x text-middle"]/tbody/tr[1]/td[@class="text-center nowrap"]/a').get_attribute('href'))
-        #控制tr[i]进行循环，现在无法循环(报错)
-        # drive.find_element_by_xpath('//table[@class="table table-bordered margin-t-1x text-middle"]/tbody/tr[1]/td[7]').click()
-        drive.find_element_by_link_text("详情").click()
-        time.sleep(1)
-        drive.find_element_by_xpath('//div[@class="modal-header modal-new-header"]/div[@class="close-div"]').click()
-        time.sleep(1)
-        drive.find_element_by_xpath('//table[@class="table table-bordered margin-t-1x text-middle"]/tbody/tr[2]/td[7]').click()
-        time.sleep(1)
-        drive.find_element_by_xpath('//div[@class="modal-header modal-new-header"]/div[@class="close-div"]').click()
-        #第2条过后开始无法点击详情（Message: Element <td class="text-center nowrap"> is not clickable at point (881,845) because another element <div class="container clear-fix"> obscures it）
-        # time.sleep(10)
-        # drive.find_element_by_xpath('//table[@class="table table-bordered margin-t-1x text-middle"]/tbody/tr[3]/td[@class="text-center nowrap"]').click()
-        # time.sleep(3)
-        # drive.find_element_by_xpath('//div[@class="modal-header modal-new-header"]/div[@class="close-div"]').click()
-        # time.sleep(3)
-        # drive.find_element_by_xpath('//table[@class="table table-bordered margin-t-1x text-middle"]/tbody/tr[4]/td[@class="text-center nowrap"]').click()
-        # time.sleep(1)
-        # drive.find_element_by_xpath('//div[@class="modal-header modal-new-header"]/div[@class="close-div"]').click()
-        # time.sleep(1)
-        # drive.find_element_by_xpath('//table[@class="table table-bordered margin-t-1x text-middle"]/tbody/tr[5]/td[@class="text-center nowrap"]').click()
-        # time.sleep(1)
-        # drive.find_element_by_xpath('//div[@class="modal-header modal-new-header"]/div[@class="close-div"]').click()
-        time.sleep(3)
-        drive.close()
-        yield scrapy.Request(url=url,headers=self.headers,callback=self.parse)
-
+    start_urls = {'https://www.qixin.com/ability/60214084-2b87-4ea3-9131-e4c313deacf0'}
     def parse(self, response):
-        pass
+        drive = webdriver.Chrome()
+        drive.get("https://www.qixin.com/ability/60214084-2b87-4ea3-9131-e4c313deacf0")
+        items = CompanyinfoItem()
 
-    def getinfo(self,response):
-        items = CompanyinfoItem
+        #商标
+        sml = {}
+        i=1
+        a=[]
+        tr_list = response.xpath('//*[@id="trademark"]/table/tbody/tr')
+        for tr in tr_list:
+            detail = drive.find_element_by_xpath('//table[@class="table table-bordered margin-t-1x text-middle"]/tbody/tr[{0}]/td[@class="text-center nowrap"]/a'.format(i))
+            drive.execute_script('arguments[0].click()', detail)
+            time.sleep(2)
+            sml['商标图片']=drive.find_element_by_xpath('//img[@class="img-responsive img-center"]').get_attribute('src')
+            sml['商标名称']=drive.find_element_by_xpath('//div[@class="modal-content"]/div[@class="modal-body padding-t-0x"]/div[@class="row"]/div[@class="col-xs-24"]/table[@class="table table1 table-bordered"]/tbody/tr/td[@class="td-2"]').get_attribute('textContent')
+            sml['商标注册号']=drive.find_element_by_xpath('//div[@class="modal-content"]/div[@class="modal-body padding-t-0x"]/div[@class="row"]/div[@class="col-xs-24"]/table[@class="table table1 table-bordered"]/tbody/tr[2]/td[2]').get_attribute('textContent')
+            sml['商标类别']=drive.find_element_by_xpath('//div[@class="modal-content"]/div[@class="modal-body padding-t-0x"]/div[@class="row"]/div[@class="col-xs-24"]/table[@class="table table1 table-bordered"]/tbody/tr[3]/td[2]').get_attribute('textContent')
+            sml['商标状态']=drive.find_element_by_xpath('//div[@class="modal-content"]/div[@class="modal-body padding-t-0x"]/div[@class="row"]/div[@class="col-xs-24"]/table[@class="table table1 table-bordered"]/tbody/tr[4]/td[2]').get_attribute('textContent')
+            sml['申请人']=drive.find_element_by_xpath('/html/body/div[10]/div/div/div[2]/div/div/table/tbody/tr[5]/td[2]/a').get_attribute('href')
+            sml['申请日']=drive.find_element_by_xpath('/html/body/div[10]/div/div/div[2]/div/div/table/tbody/tr[6]/td[2]').get_attribute('textContent')
+            sml['初审公告日']=drive.find_element_by_xpath('/html/body/div[10]/div/div/div[2]/div/div/table/tbody/tr[6]/td[4]').get_attribute('textContent')
+            sml['注册公告日']=drive.find_element_by_xpath('/html/body/div[10]/div/div/div[2]/div/div/table/tbody/tr[7]/td[2]').get_attribute('textContent')
+            sml['专用期限']=drive.find_element_by_xpath('/html/body/div[10]/div/div/div[2]/div/div/table/tbody/tr[7]/td[4]').get_attribute('textContent')
+            sml['专利代理机构']=drive.find_element_by_xpath('/html/body/div[10]/div/div/div[2]/div/div/table/tbody/tr[8]/td[2]/a').get_attribute('href')
+            sml['商标公告']=drive.find_element_by_xpath('/html/body/div[10]/div/div/div[2]/div/div/table/tbody/tr[9]/td[2]').get_attribute('textContent')
+            sml['商品服务项目']=drive.find_element_by_xpath('/html/body/div[10]/div/div/div[2]/div/div/table/tbody/tr[11]/td[1]').get_attribute('textContent')
+            close = drive.find_element_by_xpath('//div[@class="modal-header modal-new-header"]/div[@class="close-div"]')
+            drive.execute_script('arguments[0].click()', close)
+            time.sleep(1)
+            a.append({i:{'商标图片':sml['商标图片'],'商标名称':sml['商标名称'],'商标注册号':sml['商标注册号'],'商标类别':sml['商标类别'],'商标状态':sml['商标状态'],'申请人':sml['申请人'],'申请日':sml['申请日'],'初审公告日':sml['初审公告日'],'注册公告日':sml['注册公告日'],'专用期限':sml['专用期限'],'专利代理机构':sml['专利代理机构'],'商标公告':sml['商标公告'],'商品服务项目':sml['商品服务项目']}})
+            i+=1
+        print(a)
+        items['商标']=a
 
-        trademark_image_url = response.xpath().extract()
-        trademark_name =  response.xpath().extract()
-        trademark_status =  response.xpath().extract()
-        trademark_apply_date = response.xpath().extract()
-        trademark_reg_no = response.xpath().extract()
-        trademark_type_no = response.xpath().extract()
-        trademark_type_name = response.xpath().extract()
-        trademark_apply_name = response.xpath().extract()
-        trademark_first_trial_date = response.xpath().extract()
-        trademark_reg_date = response.xpath().extract()
-        trademark_period = response.xpath().extract()
-        trademark_agent = response.xpath().extract()
-        trademark_products_name = response.xpath().extract()
+        #专利信息
 
+
+        #著作权
+
+
+        #软件著作权
+
+
+        #资质认证
+
+
+        drive.close()
+        yield items
