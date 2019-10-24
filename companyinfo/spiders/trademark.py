@@ -49,11 +49,10 @@ class TrademarkSpider(scrapy.Spider):
         #专利信息
         urls = response.xpath('//div[@class="container"]/div[@class="row"]/div[@class="col-md-18"]/div[@class="tab-content"]/table[@class="table table-bordered margin-t-1x"]/tbody/tr/td/h5[@class="h5"]/a/@href').extract()
         # print(urls)
-        i = 0
-        for url in urls:
-            url = list('https://www.qixin.com/patent/'+urls[i])
-            i+=1
-            print(url)
+        i=0
+        url = list('https://www.qixin.com'+urls[i].format(x) for x in range(6))
+        print(url)
+        i+=1
         yield scrapy.Request(url=url,callback=self.parse)
 
 
