@@ -23,9 +23,9 @@ class QixinbaoSpider(scrapy.Spider):
                 yield scrapy.Request(url=str(url),headers=self.headers,callback=self.parse)
                 print(url)
     def parse(self, response):
-        driver = webdriver.Chrome()
+        driver = webdriver.Firefox()
         driver.get(response.url)
-        time.sleep(20)
+        time.sleep(30)
         driver.close()
         urls = re.findall(r'keyId="(.*?)"',response.text,re.M)
         print(urls)
