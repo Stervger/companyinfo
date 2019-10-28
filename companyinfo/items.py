@@ -115,28 +115,20 @@ class CompanyinfoItem(scrapy.Item):
 
 ############################################################################
     #专利（patent）
-    patent_name = scrapy.Field()  # 专利名称
-    patent_type = scrapy.Field()  # 专利类型
-    patent_apply_date = scrapy.Field()  # 申请日期
-    patent_id = scrapy.Field()  # 专利
-    patent_apply_no = scrapy.Field()  # 专利申请号
-    patent_auth_date = scrapy.Field()  # 专利授权公布日
-    patent_auth_no = scrapy.Field()  # 专利授权号
-    patent_status = scrapy.Field()  # 专利法律状态
+    专利 = scrapy.Field()
+    专利名 = scrapy.Field()
+    专利类型 = scrapy.Field()
+    申请公布号 = scrapy.Field()
+    发布日期 = scrapy.Field()
+    专利描述 = scrapy.Field()
+    专利详情 = scrapy.Field()
 
 #############################################################################
     #著作权（copyright）
-    # source_type = scrapy.Field()  # 0,一般著作权;1,软件著作权
-    copyright_id = scrapy.Field()  # 著作ID
-    copyright_reg_no = scrapy.Field()  # 著作注册号
-    copyright_firm = scrapy.Field()  # 著作持有企业
-    copyright_version = scrapy.Field()  # 版本号
-    copyright_type = scrapy.Field()  # 著作类型
-    copyright_name = scrapy.Field()  # 著作名称
-    copyright_type_name = scrapy.Field()  # 著作类型名称
-    copyright_success_date = scrapy.Field()  # 著作完成时间
-    copyright_approval_date = scrapy.Field()  # 著作批准时间
-    copyright_related_companies = scrapy.Field()  # 著作相关公司
-    copyright_short_name = scrapy.Field()  # 著作简称
-    copyright_last_alt_time = scrapy.Field()  # 著作最后更新时间
-    copyright_type_no = scrapy.Field()  # 著作分类号
+    著作权 = scrapy.Field()
+    作品名称 = scrapy.Field()
+    登记号 = scrapy.Field()
+    类别 = scrapy.Field()
+    创作完成日期 = scrapy.Field()
+    登记日期 = scrapy.Field()
+    首次发布日期 = scrapy.Field()
