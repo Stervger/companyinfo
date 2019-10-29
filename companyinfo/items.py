@@ -9,7 +9,6 @@ import scrapy
 
 
 class CompanyinfoItem(scrapy.Item):
-    #基本信息
 
 
 ##########################################################################
@@ -68,8 +67,27 @@ class CompanyinfoItem(scrapy.Item):
     状态 = scrapy.Field()
     备注 = scrapy.Field()
 
+#########################################################################
+    #融资信息
+    融资信息 = scrapy.Field()
+    融资时间 = scrapy.Field()
+    融资轮次 = scrapy.Field()
+    融资金额 = scrapy.Field()
+    投资方 = scrapy.Field()
 
-
+##########################################################################
+    #质权人
+    质权人 = scrapy.Field()
+    登记日期 = scrapy.Field()
+    状态 = scrapy.Field()
+    出质人 = scrapy.Field()
+    出质股权数 = scrapy.Field()
+    出质人证件号码 = scrapy.Field()
+    登记编号 = scrapy.Field()
+    标的方 = scrapy.Field()
+    质权人 = scrapy.Field()
+    质权人证件号码 = scrapy.Field()
+    备注 = scrapy.Field()
 
 
 

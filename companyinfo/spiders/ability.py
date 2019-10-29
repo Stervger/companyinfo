@@ -4,20 +4,20 @@ import time
 from selenium import webdriver
 from companyinfo.items import CompanyinfoItem
 
-
-class TrademarkSpider(scrapy.Spider):
+class AbilitySpider(scrapy.Spider):
+    name = 'ability'
     headers = {
         'Host': 'www.qixin.com',
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:69.0) Gecko/20100101 Firefox/69.0',
     }
-    name = 'trademark'
-    start_urls = {'https://www.qixin.com/ability/60214084-2b87-4ea3-9131-e4c313deacf0'}
+    start_urls = {'https://www.qixin.com/ability/09df282a-945b-493d-ac46-9d0c247e872d'}
+
     def parse(self, response):
-        drive = webdriver.Firefox()
-        drive.get("https://www.qixin.com/ability/60214084-2b87-4ea3-9131-e4c313deacf0")
+        drive = webdriver.Chrome()
+        drive.get("https://www.qixin.com/ability/09df282a-945b-493d-ac46-9d0c247e872d")
         items = CompanyinfoItem()
 
-        #商标
+        # 商标
         # totalpage = int(drive.find_element_by_xpath('//*[@id="trademark"]/div[1]/h4/span').get_attribute('textContent'))//5 + 1
         # print(totalpage)
         # if totalpage!=1:
@@ -89,7 +89,7 @@ class TrademarkSpider(scrapy.Spider):
         #     items['商标'] = trademark
         #     yield items
 
-        #专利信息
+        # 专利信息
         # urls = response.xpath('//div[@class="container"]/div[@class="row"]/div[@class="col-md-18"]/div[@class="tab-content"]/table[@class="table table-bordered margin-t-1x"]/tbody/tr/td/h5[@class="h5"]/a/@href').extract()
         # i=0
         # for url in urls:
@@ -147,7 +147,7 @@ class TrademarkSpider(scrapy.Spider):
         #     items['专利'] = patent
         #     yield items
 
-        #著作权
+        # 著作权
         # totalpage = int(drive.find_element_by_xpath('//*[@id="copyRight"]/h4/span').get_attribute('textContent')) // 5 + 1
         # print(totalpage)
         # if totalpage != 1:
@@ -197,8 +197,7 @@ class TrademarkSpider(scrapy.Spider):
         #     items['著作权'] = copyRight
         #     yield items
 
-
-        #软件著作权
+        # 软件著作权
         # totalpage = int(drive.find_element_by_xpath('//*[@id="copyRightSoft"]/h4/span').get_attribute('textContent')) // 5 + 1
         # print(totalpage)
         # if totalpage != 1:
@@ -248,7 +247,7 @@ class TrademarkSpider(scrapy.Spider):
         #     items['软件著作权'] = copyRightSoft
         #     yield items
 
-        #资质认证
+        # 资质认证
         # totalpage = int(drive.find_element_by_xpath('//*[@id="certificate"]/h4/span').get_attribute('textContent'))//5 + 1
         # print(totalpage)
         # if totalpage!=1:
@@ -307,8 +306,4 @@ class TrademarkSpider(scrapy.Spider):
         #     yield items
         #
         #
-        # drive.close()
-
-
-
-
+        drive.close()
