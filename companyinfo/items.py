@@ -81,13 +81,26 @@ class CompanyinfoItem(scrapy.Item):
     登记日期 = scrapy.Field()
     状态 = scrapy.Field()
     出质人 = scrapy.Field()
+    出质人详情 = scrapy.Field()
     出质股权数 = scrapy.Field()
     出质人证件号码 = scrapy.Field()
     登记编号 = scrapy.Field()
     标的方 = scrapy.Field()
+    标的方详情 = scrapy.Field()
     质权人 = scrapy.Field()
+    质权人详情 = scrapy.Field()
     质权人证件号码 = scrapy.Field()
     备注 = scrapy.Field()
+
+###########################################################################
+    #行政许可
+    行政许可 = scrapy.Field()
+    许可文件编号 = scrapy.Field()
+    许可文件名称 = scrapy.Field()
+    有效期自 = scrapy.Field()
+    有效期至 = scrapy.Field()
+    许可机关 = scrapy.Field()
+    许可内容 = scrapy.Field()
 
 
 
