@@ -18,10 +18,15 @@ class AbilitySpider(scrapy.Spider):
         items = CompanyinfoItem()
 
         # 商标
-        # totalpage = int(drive.find_element_by_xpath('//*[@id="trademark"]/div[1]/h4/span').get_attribute('textContent'))//5 + 1
+        # totalnum = int(drive.find_element_by_xpath('//*[@id="trademark"]/div[1]/h4/span').get_attribute('textContent'))
+        # if totalnum == 5:
+        #     totalpage = 1
+        # else:
+        #     totalpage = totalnum // 5 + 1
+        # lastpagenum = totalnum % 5
         # print(totalpage)
         # if totalpage!=1:
-        #     for p in range(1,totalpage):
+        #     for p in range(1,totalpage+1):
         #         if p <= 3:
         #             p=p
         #         elif p==totalpage:
@@ -35,7 +40,12 @@ class AbilitySpider(scrapy.Spider):
         #         i = 1
         #         trademark = []
         #         tr_list = response.xpath('//*[@id="trademark"]/table/tbody/tr')
-        #         for tr in tr_list:
+        #         trlenth = len(tr_list)
+        #         if lastpagenum == 0:
+        #             trlenth = trlenth
+        #         elif p == totalpage:
+        #             trlenth = lastpagenum
+        #         for tr in range(trlenth):
         #             detail = drive.find_element_by_xpath('//table[@class="table table-bordered margin-t-1x text-middle"]/tbody/tr[{0}]/td[@class="text-center nowrap"]/a'.format(i))
         #             drive.execute_script('arguments[0].click()', detail)
         #             time.sleep(2)
@@ -98,10 +108,15 @@ class AbilitySpider(scrapy.Spider):
         #     str(url)
         #     print(url)
         #     yield scrapy.Request(url=url,callback=self.parse)
-        # totalpage = int(drive.find_element_by_xpath('//*[@id="patent"]/h4/span').get_attribute('textContent')) // 5 + 1
+        # totalnum = int(drive.find_element_by_xpath('//*[@id="patent"]/h4/span').get_attribute('textContent'))
+        # if totalnum == 5:
+        #     totalpage = 1
+        # else:
+        #     totalpage = totalnum//5+1
+        # lastpagenum = totalnum%5
         # print(totalpage)
         # if totalpage != 1:
-        #     for p in range(1, totalpage):
+        #     for p in range(1, totalpage+1):
         #         if p <= 3:
         #             p = p
         #         elif p == totalpage:
@@ -115,7 +130,12 @@ class AbilitySpider(scrapy.Spider):
         #         i = 1
         #         patent = []
         #         tr_list = response.xpath('//*[@id="patent"]/table/tbody/tr')
-        #         for tr in tr_list:
+        #         trlenth = len(tr_list)
+        #         if lastpagenum == 0:
+        #             trlenth = trlenth
+        #         elif p == totalpage:
+        #             trlenth = lastpagenum
+        #         for tr in range(trlenth):
         #             time.sleep(2)
         #             patent_detail['专利名'] = drive.find_element_by_xpath('//*[@id="patent"]/table/tbody/tr[{0}]/td[5]/h5/a'.format(i)).get_attribute('textContent')
         #             patent_detail['专利类型'] = drive.find_element_by_xpath('//*[@id="patent"]/table/tbody/tr[{0}]/td[2]'.format(i)).get_attribute('textContent')
@@ -148,10 +168,15 @@ class AbilitySpider(scrapy.Spider):
         #     yield items
 
         # 著作权
-        # totalpage = int(drive.find_element_by_xpath('//*[@id="copyRight"]/h4/span').get_attribute('textContent')) // 5 + 1
+        # totalnum = int(drive.find_element_by_xpath('//*[@id="copyRight"]/h4/span').get_attribute('textContent'))
+        # if totalnum == 5:
+        #     totalpage=1
+        # else:
+        #     totalpage = totalnum//5+1
+        # lastpagenum = totalnum%5
         # print(totalpage)
         # if totalpage != 1:
-        #     for p in range(1, totalpage):
+        #     for p in range(1, totalpage+1):
         #         if p <= 3:
         #             p = p
         #         elif p == totalpage:
@@ -165,7 +190,12 @@ class AbilitySpider(scrapy.Spider):
         #         i = 1
         #         copyRight = []
         #         tr_list = response.xpath('//*[@id="copyRight"]/table/tbody/tr')
-        #         for tr in tr_list:
+        #         trlenth = len(tr_list)
+        #         if lastpagenum == 0:
+        #             trlenth = trlenth
+        #         elif p == totalpage:
+        #             trlenth = lastpagenum
+        #         for tr in range(trlenth):
         #             time.sleep(2)
         #             copyRight_detail['作品名称'] = drive.find_element_by_xpath('//*[@id="copyRight"]/table/tbody/tr[{0}]/td[2]'.format(i)).get_attribute('textContent')
         #             copyRight_detail['登记号'] = drive.find_element_by_xpath('//*[@id="copyRight"]/table/tbody/tr[{0}]/td[3]'.format(i)).get_attribute('textContent')
@@ -198,10 +228,15 @@ class AbilitySpider(scrapy.Spider):
         #     yield items
 
         # 软件著作权
-        # totalpage = int(drive.find_element_by_xpath('//*[@id="copyRightSoft"]/h4/span').get_attribute('textContent')) // 5 + 1
+        # totalnum = int(drive.find_element_by_xpath('//*[@id="copyRightSoft"]/h4/span').get_attribute('textContent'))
+        # if totalnum==5:
+        #     totalpage=1
+        # else:
+        #     totalpage = totalnum // 5 + 1
+        # lastpagenum=totalnum%5
         # print(totalpage)
         # if totalpage != 1:
-        #     for p in range(1, totalpage):
+        #     for p in range(1, totalpage+1):
         #         if p <= 3:
         #             p = p
         #         elif p == totalpage:
@@ -215,7 +250,12 @@ class AbilitySpider(scrapy.Spider):
         #         i = 1
         #         copyRightSoft = []
         #         tr_list = response.xpath('//*[@id="copyRightSoft"]/table/tbody/tr')
-        #         for tr in tr_list:
+        #         trlenth = len(tr_list)
+        #         if lastpagenum == 0:
+        #             trlenth = trlenth
+        #         elif p == totalpage:
+        #             trlenth = lastpagenum
+        #         for tr in range(trlenth):
         #             time.sleep(2)
         #             copyRightSoft_detail['软件名称'] = drive.find_element_by_xpath('//*[@id="copyRightSoft"]/table/tbody/tr[{0}]/td[2]'.format(i)).get_attribute('textContent')
         #             copyRightSoft_detail['登记号'] = drive.find_element_by_xpath('//*[@id="copyRightSoft"]/table/tbody/tr[{0}]/td[3]'.format(i)).get_attribute('textContent')
@@ -248,10 +288,15 @@ class AbilitySpider(scrapy.Spider):
         #     yield items
 
         # 资质认证
-        # totalpage = int(drive.find_element_by_xpath('//*[@id="certificate"]/h4/span').get_attribute('textContent'))//5 + 1
+        # totalnum = int(drive.find_element_by_xpath('//*[@id="certificate"]/h4/span').get_attribute('textContent'))
+        # if totalnum == 5:
+        #     totalpage = 1
+        # else:
+        #     totalpage = totalnum // 5 + 1
+        # lastpagenum = totalnum % 5
         # print(totalpage)
         # if totalpage!=1:
-        #     for p in range(1,totalpage):
+        #     for p in range(1,totalpage+1):
         #         if p <= 3:
         #             p=p
         #         elif p==totalpage:
@@ -265,7 +310,12 @@ class AbilitySpider(scrapy.Spider):
         #         i = 1
         #         certificate = []
         #         tr_list = response.xpath('//*[@id="certificate"]/table/tbody/tr')
-        #         for tr in tr_list:
+        #         trlenth = len(tr_list)
+        #         if lastpagenum == 0:
+        #             trlenth = trlenth
+        #         elif p == totalpage:
+        #             trlenth = lastpagenum
+        #         for tr in range(trlenth):
         #             detail = drive.find_element_by_xpath('//*[@id="certificate"]/table/tbody/tr[{0}]/td[5]/div/a'.format(i))
         #             drive.execute_script('arguments[0].click()', detail)
         #             time.sleep(2)

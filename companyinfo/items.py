@@ -102,6 +102,62 @@ class CompanyinfoItem(scrapy.Item):
     许可机关 = scrapy.Field()
     许可内容 = scrapy.Field()
 
+############################################################################
+    #税务评级
+    税务评级 = scrapy.Field()
+    评价年度 = scrapy.Field()
+    纳税人信用级别 = scrapy.Field()
+    纳税人名称 = scrapy.Field()
+    纳税人识别号 = scrapy.Field()
+
+############################################################################
+    #新闻动态
+    新闻动态 = scrapy.Field()
+    新闻标题 = scrapy.Field()
+    新闻概要 = scrapy.Field()
+    时间来源 = scrapy.Field()
+    详情连接 = scrapy.Field()
+
+##########################################################################
+    #招聘信息
+    招聘信息 = scrapy.Field()
+    职位名称 = scrapy.Field()
+    发布日期 = scrapy.Field()
+    工作地点 = scrapy.Field()
+    薪资待遇 = scrapy.Field()
+    学历要求 = scrapy.Field()
+    工作经验 = scrapy.Field()
+    工作类型 = scrapy.Field()
+    年龄要求 = scrapy.Field()
+    招聘人数 = scrapy.Field()
+    信息来源 = scrapy.Field()
+    来源名称 = scrapy.Field()
+    来源链接 = scrapy.Field()
+    地块公示 = scrapy.Field()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
