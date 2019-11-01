@@ -10,12 +10,12 @@ class AbilitySpider(scrapy.Spider):
         'Host': 'www.qixin.com',
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:69.0) Gecko/20100101 Firefox/69.0',
     }
-    start_urls = {'https://www.qixin.com/ability/1a954895-82b3-4f40-a9f0-26947bdc7f51'}
+    start_urls = {'https://www.qixin.com/ability/ffd915ae-b388-4ecd-a20a-b6cc9b4e8db5'}
 
     def parse(self, response):
-        drive = webdriver.Firefox()
-        drive.get("https://www.qixin.com/ability/1a954895-82b3-4f40-a9f0-26947bdc7f51")
-        time.sleep(20)
+        drive = webdriver.Chrome()
+        drive.get("https://www.qixin.com/ability/ffd915ae-b388-4ecd-a20a-b6cc9b4e8db5")
+        # time.sleep(20)
         items = CompanyinfoItem()
 
         items['name'] = response.xpath('/html/body/div[2]/div/div/div/div/div[2]/div[1]/div[1]/h3/text()').extract()
@@ -25,14 +25,19 @@ class AbilitySpider(scrapy.Spider):
         items['header'] = "Accept:text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,Upgrade-Insecure-Requests: 1,USER_AGENT:'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_0) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.56 Safari/535.11 '"
         items['data'] = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time()))
         subtitle = {}
-        ability = {}
 
         # 商标
         totalnum = int(drive.find_element_by_xpath('//*[@id="trademark"]/div[1]/h4/span').get_attribute('textContent'))
         if totalnum == 5:
             totalpage = 1
+        elif totalnum%5 == 0:
+            totalpage = totalnum // 5
+            if totalpage>20:
+                totalpage = 20
         else:
             totalpage = totalnum // 5 + 1
+            if totalpage>20:
+                totalpage = 20
         lastpagenum = totalnum % 5
         print(totalpage)
         if totalpage!=1:
@@ -53,7 +58,7 @@ class AbilitySpider(scrapy.Spider):
                 trlenth = len(tr_list)
                 if lastpagenum == 0:
                     trlenth = trlenth
-                elif p == totalpage:
+                elif p == totalpage or 1<=lastpagenum<5:
                     trlenth = lastpagenum
                 for tr in range(trlenth):
                     detail = drive.find_element_by_xpath('//table[@class="table table-bordered margin-t-1x text-middle"]/tbody/tr[{0}]/td[@class="text-center nowrap"]/a'.format(i))
@@ -113,8 +118,14 @@ class AbilitySpider(scrapy.Spider):
         totalnum = int(drive.find_element_by_xpath('//*[@id="patent"]/h4/span').get_attribute('textContent'))
         if totalnum == 5:
             totalpage = 1
+        elif totalnum%5 == 0:
+            totalpage = totalnum // 5
+            if totalpage>20:
+                totalpage = 20
         else:
             totalpage = totalnum//5+1
+            if totalpage>20:
+                totalpage = 20
         lastpagenum = totalnum%5
         print(totalpage)
         if totalpage != 1:
@@ -171,8 +182,14 @@ class AbilitySpider(scrapy.Spider):
         totalnum = int(drive.find_element_by_xpath('//*[@id="copyRight"]/h4/span').get_attribute('textContent'))
         if totalnum == 5:
             totalpage=1
+        elif totalnum%5 == 0:
+            totalpage = totalnum // 5
+            if totalpage>20:
+                totalpage = 20
         else:
             totalpage = totalnum//5+1
+            if totalpage>20:
+                totalpage = 20
         lastpagenum = totalnum%5
         print(totalpage)
         if totalpage != 1:
@@ -193,7 +210,7 @@ class AbilitySpider(scrapy.Spider):
                 trlenth = len(tr_list)
                 if lastpagenum == 0:
                     trlenth = trlenth
-                elif p == totalpage:
+                elif p == totalpage or 1<=lastpagenum<5:
                     trlenth = lastpagenum
                 for tr in range(trlenth):
                     time.sleep(2)
@@ -232,8 +249,12 @@ class AbilitySpider(scrapy.Spider):
             totalpage=1
         elif totalnum%5 == 0:
             totalpage = totalnum // 5
+            if totalpage>20:
+                totalpage = 20
         else:
             totalpage = totalnum // 5 + 1
+            if totalpage>20:
+                totalpage = 20
         lastpagenum=totalnum%5
         print(lastpagenum)
         print(totalpage)
@@ -292,8 +313,14 @@ class AbilitySpider(scrapy.Spider):
         totalnum = int(drive.find_element_by_xpath('//*[@id="certificate"]/h4/span').get_attribute('textContent'))
         if totalnum == 5:
             totalpage = 1
+        elif totalnum%5 == 0:
+            totalpage = totalnum // 5
+            if totalpage>20:
+                totalpage = 20
         else:
             totalpage = totalnum // 5 + 1
+            if totalpage>20:
+                totalpage = 20
         lastpagenum = totalnum % 5
         print(totalpage)
         if totalpage!=1:
@@ -314,7 +341,7 @@ class AbilitySpider(scrapy.Spider):
                 trlenth = len(tr_list)
                 if lastpagenum == 0:
                     trlenth = trlenth
-                elif p == totalpage:
+                elif p == totalpage or 1<=lastpagenum<5:
                     trlenth = lastpagenum
                 for tr in range(trlenth):
                     detail = drive.find_element_by_xpath('//*[@id="certificate"]/table/tbody/tr[{0}]/td[5]/div/a'.format(i))
@@ -354,7 +381,7 @@ class AbilitySpider(scrapy.Spider):
             print(certificate)
             subtitle['资质认证'] = certificate
 
-        content = items['content'] = [{'商标':subtitle['商标'],'专利':subtitle['专利'],'著作权':subtitle['著作权'],'软件著作权':subtitle['软件著作权'],'资质认证':subtitle['资质认证']}]
-        print(content)
+        items['content'] = [{'商标':subtitle['商标'],'专利':subtitle['专利'],'著作权':subtitle['著作权'],'软件著作权':subtitle['软件著作权'],'资质认证':subtitle['资质认证']}]
+        # print(content)
         drive.close()
         yield items
