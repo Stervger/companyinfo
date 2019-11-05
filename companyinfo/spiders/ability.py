@@ -10,11 +10,11 @@ class AbilitySpider(scrapy.Spider):
         'Host': 'www.qixin.com',
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:69.0) Gecko/20100101 Firefox/69.0',
     }
-    start_urls = {'https://www.qixin.com/ability/ffd915ae-b388-4ecd-a20a-b6cc9b4e8db5'}
+    start_urls = {'https://www.qixin.com/ability/534472fd-7d53-4958-8132-d6a6242423d8'}
 
     def parse(self, response):
-        drive = webdriver.Chrome()
-        drive.get("https://www.qixin.com/ability/ffd915ae-b388-4ecd-a20a-b6cc9b4e8db5")
+        drive = webdriver.Firefox()
+        drive.get("https://www.qixin.com/ability/534472fd-7d53-4958-8132-d6a6242423d8")
         # time.sleep(20)
         items = CompanyinfoItem()
 
@@ -39,7 +39,7 @@ class AbilitySpider(scrapy.Spider):
             totalpage = totalnum // 5 + 1
             if totalpage>20:
                 totalpage = 19
-        lastpagenum = totalnum % 5
+        lastpagenum=totalnum % 5
         print(totalpage)
         if totalpage > 1:
             for p in range(1,totalpage+1):
@@ -61,14 +61,14 @@ class AbilitySpider(scrapy.Spider):
                 elif p == totalpage or 1<=lastpagenum<5:
                     trlenth = lastpagenum
                 for tr in range(trlenth):
-                    detail = drive.find_element_by_xpath('//table[@class="table table-bordered margin-t-1x text-middle"]/tbody/tr[{0}]/td[@class="text-center nowrap"]/a'.format(i))
+                    detail = drive.find_element_by_xpath('//*[@id="trademark"]/table/tbody/tr[{0}]/td[7]/a'.format(i))
                     drive.execute_script('arguments[0].click()', detail)
                     time.sleep(2)
-                    trademark_detail['商标图片'] = drive.find_element_by_xpath('//img[@class="img-responsive img-center"]').get_attribute('src')
-                    trademark_detail['商标名称'] = drive.find_element_by_xpath('//div[@class="modal-content"]/div[@class="modal-body padding-t-0x"]/div[@class="row"]/div[@class="col-xs-24"]/table[@class="table table1 table-bordered"]/tbody/tr/td[@class="td-2"]').get_attribute('textContent')
-                    trademark_detail['商标注册号'] = drive.find_element_by_xpath('//div[@class="modal-content"]/div[@class="modal-body padding-t-0x"]/div[@class="row"]/div[@class="col-xs-24"]/table[@class="table table1 table-bordered"]/tbody/tr[2]/td[2]').get_attribute('textContent')
-                    trademark_detail['商标类别'] = drive.find_element_by_xpath('//div[@class="modal-content"]/div[@class="modal-body padding-t-0x"]/div[@class="row"]/div[@class="col-xs-24"]/table[@class="table table1 table-bordered"]/tbody/tr[3]/td[2]').get_attribute('textContent')
-                    trademark_detail['商标状态'] = drive.find_element_by_xpath('//div[@class="modal-content"]/div[@class="modal-body padding-t-0x"]/div[@class="row"]/div[@class="col-xs-24"]/table[@class="table table1 table-bordered"]/tbody/tr[4]/td[2]').get_attribute('textContent')
+                    trademark_detail['商标图片'] = drive.find_element_by_xpath('/html/body/div[10]/div/div/div[2]/div/div/table/tbody/tr[1]/td[1]/div/img').get_attribute('src')
+                    trademark_detail['商标名称'] = drive.find_element_by_xpath('/html/body/div[10]/div/div/div[2]/div/div/table/tbody/tr[1]/td[3]').get_attribute('textContent')
+                    trademark_detail['商标注册号'] = drive.find_element_by_xpath('/html/body/div[10]/div/div/div[2]/div/div/table/tbody/tr[2]/td[2]').get_attribute('textContent')
+                    trademark_detail['商标类别'] = drive.find_element_by_xpath('/html/body/div[10]/div/div/div[2]/div/div/table/tbody/tr[3]/td[2]').get_attribute('textContent')
+                    trademark_detail['商标状态'] = drive.find_element_by_xpath('/html/body/div[10]/div/div/div[2]/div/div/table/tbody/tr[4]/td[2]').get_attribute('textContent')
                     trademark_detail['申请人'] = drive.find_element_by_xpath('/html/body/div[10]/div/div/div[2]/div/div/table/tbody/tr[5]/td[2]').get_attribute('textContent')
                     trademark_detail['申请日'] = drive.find_element_by_xpath('/html/body/div[10]/div/div/div[2]/div/div/table/tbody/tr[6]/td[2]').get_attribute('textContent')
                     trademark_detail['初审公告日'] = drive.find_element_by_xpath('/html/body/div[10]/div/div/div[2]/div/div/table/tbody/tr[6]/td[4]').get_attribute('textContent')
@@ -83,7 +83,6 @@ class AbilitySpider(scrapy.Spider):
                     i += 1
                 print(trademark)
             subtitle['商标'] = trademark
-
         else:
             trademark_detail = {}
             i = 1
@@ -309,7 +308,7 @@ class AbilitySpider(scrapy.Spider):
             print(copyRightSoft)
             subtitle['软件著作权'] = copyRightSoft
 
-        # 资质认证
+        #资质认证
         totalnum = int(drive.find_element_by_xpath('//*[@id="certificate"]/h4/span').get_attribute('textContent'))
         certificate = []
         if totalnum == 5:

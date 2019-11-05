@@ -14,7 +14,7 @@ class CompanyinfoPipeline(object):
         # self.file = codecs.open(news.json', 'w', encoding='utf-8')
 
     def process_item(self, item, spider):
-        self.file = codecs.open('经营信息.json', 'a', encoding='utf-8')
+        self.file = codecs.open('知识产权.json', 'a', encoding='utf-8')
         line = json.dumps(dict(item), ensure_ascii=False) + "\n"
         self.file.write(line)
         self.file.close()

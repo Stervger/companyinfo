@@ -11,11 +11,11 @@ class OperationSpider(scrapy.Spider):
         'Host': 'www.qixin.com',
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:69.0) Gecko/20100101 Firefox/69.0',
     }
-    start_urls = {'https://www.qixin.com/operation/0398b081-6676-4a91-856b-abbabaee5e70'}
+    start_urls = {'https://www.qixin.com/operation/60214084-2b87-4ea3-9131-e4c313deacf0'}
 
     def parse(self, response):
-        drive = webdriver.Chrome()
-        drive.get("https://www.qixin.com/operation/0398b081-6676-4a91-856b-abbabaee5e70")
+        drive = webdriver.Firefox()
+        drive.get("https://www.qixin.com/operation/60214084-2b87-4ea3-9131-e4c313deacf0")
         items = CompanyinfoItem()
 
         items['name'] = response.xpath('/html/body/div[2]/div/div/div/div/div[2]/div[1]/div[1]/h3/text()').extract()
@@ -107,7 +107,6 @@ class OperationSpider(scrapy.Spider):
                     i += 1
                 print(pawneeInfo)
             subtitle['质权人'] = pawneeInfo
-
         else:
             pawneeInfo_detail = {}
             i = 1
@@ -340,12 +339,12 @@ class OperationSpider(scrapy.Spider):
             totalpage = 1
         elif totalnum % 10 == 0:
             totalpage = totalnum // 10
-            if totalpage > 20:
-                totalpage = 19
+            if totalpage > 10:
+                totalpage = 9
         else:
             totalpage = totalnum // 10 + 1
-            if totalpage > 20:
-                totalpage = 19
+            if totalpage > 10:
+                totalpage = 9
         lastpagenum = totalnum % 10
         print(totalpage)
         if totalpage > 1:
@@ -367,25 +366,28 @@ class OperationSpider(scrapy.Spider):
                     trlenth = trlenth
                 elif p == totalpage or 1<=lastpagenum<10:
                     trlenth = lastpagenum
-                for tr in range(trlenth):
-                    detail = drive.find_element_by_xpath('//*[@id="job"]/table/tbody/tr[{0}]/td[8]/a'.format(i))
-                    drive.execute_script('arguments[0].click()', detail)
-                    time.sleep(2)
-                    job_detail['职位名称'] = drive.find_element_by_xpath('/html/body/div[10]/div/div/div[2]/div/div/table/tbody/tr[1]/td[2]').get_attribute('textContent')
-                    job_detail['发布日期'] = drive.find_element_by_xpath('/html/body/div[10]/div/div/div[2]/div/div/table/tbody/tr[1]/td[4]').get_attribute('textContent')
-                    job_detail['工作地点'] = drive.find_element_by_xpath('/html/body/div[10]/div/div/div[2]/div/div/table/tbody/tr[2]/td[2]').get_attribute('textContent')
-                    job_detail['薪资待遇'] = drive.find_element_by_xpath('/html/body/div[10]/div/div/div[2]/div/div/table/tbody/tr[2]/td[4]').get_attribute('textContent')
-                    job_detail['学历要求'] = drive.find_element_by_xpath('/html/body/div[10]/div/div/div[2]/div/div/table/tbody/tr[3]/td[2]').get_attribute('textContent')
-                    job_detail['工作经验'] = drive.find_element_by_xpath('/html/body/div[10]/div/div/div[2]/div/div/table/tbody/tr[3]/td[4]').get_attribute('textContent')
-                    job_detail['工作类型'] = drive.find_element_by_xpath('/html/body/div[10]/div/div/div[2]/div/div/table/tbody/tr[4]/td[2]').get_attribute('textContent')
-                    job_detail['年龄要求'] = drive.find_element_by_xpath('/html/body/div[10]/div/div/div[2]/div/div/table/tbody/tr[4]/td[4]').get_attribute('textContent')
-                    job_detail['招聘人数'] = drive.find_element_by_xpath('/html/body/div[10]/div/div/div[2]/div/div/table/tbody/tr[5]/td[2]').get_attribute('textContent')
-                    job_detail['职位描述'] = drive.find_element_by_xpath('/html/body/div[10]/div/div/div[2]/div/div/table/tbody/tr[6]/td[2]').get_attribute('textContent')
-                    close = drive.find_element_by_xpath('/html/body/div[10]/div/div/div[1]/div[1]')
-                    drive.execute_script('arguments[0].click()', close)
-                    job.append({i: {'职位名称': job_detail['职位名称'], '发布日期': job_detail['发布日期'], '工作地点': job_detail['工作地点'], '薪资待遇': job_detail['薪资待遇'],'学历要求': job_detail['学历要求'], '工作经验': job_detail['工作经验'], '工作类型': job_detail['工作类型'], '年龄要求': job_detail['年龄要求'],'招聘人数': job_detail['招聘人数'], '职位描述': job_detail['职位描述']}})
-                    i += 1
-                print(job)
+                try:
+                    for tr in range(trlenth):
+                        detail = drive.find_element_by_xpath('//*[@id="job"]/table/tbody/tr[{0}]/td[8]/a'.format(i))
+                        drive.execute_script('arguments[0].click()', detail)
+                        time.sleep(2)
+                        job_detail['职位名称'] = drive.find_element_by_xpath('/html/body/div[10]/div/div/div[2]/div/div/table/tbody/tr[1]/td[2]').get_attribute('textContent')
+                        job_detail['发布日期'] = drive.find_element_by_xpath('/html/body/div[10]/div/div/div[2]/div/div/table/tbody/tr[1]/td[4]').get_attribute('textContent')
+                        job_detail['工作地点'] = drive.find_element_by_xpath('/html/body/div[10]/div/div/div[2]/div/div/table/tbody/tr[2]/td[2]').get_attribute('textContent')
+                        job_detail['薪资待遇'] = drive.find_element_by_xpath('/html/body/div[10]/div/div/div[2]/div/div/table/tbody/tr[2]/td[4]').get_attribute('textContent')
+                        job_detail['学历要求'] = drive.find_element_by_xpath('/html/body/div[10]/div/div/div[2]/div/div/table/tbody/tr[3]/td[2]').get_attribute('textContent')
+                        job_detail['工作经验'] = drive.find_element_by_xpath('/html/body/div[10]/div/div/div[2]/div/div/table/tbody/tr[3]/td[4]').get_attribute('textContent')
+                        job_detail['工作类型'] = drive.find_element_by_xpath('/html/body/div[10]/div/div/div[2]/div/div/table/tbody/tr[4]/td[2]').get_attribute('textContent')
+                        job_detail['年龄要求'] = drive.find_element_by_xpath('/html/body/div[10]/div/div/div[2]/div/div/table/tbody/tr[4]/td[4]').get_attribute('textContent')
+                        job_detail['招聘人数'] = drive.find_element_by_xpath('/html/body/div[10]/div/div/div[2]/div/div/table/tbody/tr[5]/td[2]').get_attribute('textContent')
+                        job_detail['职位描述'] = drive.find_element_by_xpath('/html/body/div[10]/div/div/div[2]/div/div/table/tbody/tr[6]/td[2]').get_attribute('textContent')
+                        close = drive.find_element_by_xpath('/html/body/div[10]/div/div/div[1]/div[1]')
+                        drive.execute_script('arguments[0].click()', close)
+                        job.append({i: {'职位名称': job_detail['职位名称'], '发布日期': job_detail['发布日期'], '工作地点': job_detail['工作地点'], '薪资待遇': job_detail['薪资待遇'],'学历要求': job_detail['学历要求'], '工作经验': job_detail['工作经验'], '工作类型': job_detail['工作类型'], '年龄要求': job_detail['年龄要求'],'招聘人数': job_detail['招聘人数'], '职位描述': job_detail['职位描述']}})
+                        i += 1
+                    print(job)
+                except:
+                    drive.refresh()
             subtitle['招聘信息'] = job
         else:
             job_detail = {}
