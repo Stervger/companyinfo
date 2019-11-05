@@ -28,6 +28,7 @@ class AbilitySpider(scrapy.Spider):
 
         # 商标
         totalnum = int(drive.find_element_by_xpath('//*[@id="trademark"]/div[1]/h4/span').get_attribute('textContent'))
+        trademark = []
         if totalnum == 5:
             totalpage = 1
         elif totalnum%5 == 0:
@@ -40,7 +41,7 @@ class AbilitySpider(scrapy.Spider):
                 totalpage = 20
         lastpagenum = totalnum % 5
         print(totalpage)
-        if totalpage!=1:
+        if totalpage > 1:
             for p in range(1,totalpage+1):
                 if p <= 3:
                     p=p
@@ -53,7 +54,6 @@ class AbilitySpider(scrapy.Spider):
                 time.sleep(2)
                 trademark_detail = {}
                 i = 1
-                trademark = []
                 tr_list = response.xpath('//*[@id="trademark"]/table/tbody/tr')
                 trlenth = len(tr_list)
                 if lastpagenum == 0:
@@ -82,7 +82,7 @@ class AbilitySpider(scrapy.Spider):
                     trademark.append({i: {'商标图片': trademark_detail['商标图片'], '商标名称': trademark_detail['商标名称'], '商标注册号': trademark_detail['商标注册号'], '商标类别': trademark_detail['商标类别'],'商标状态': trademark_detail['商标状态'], '申请人': trademark_detail['申请人'], '申请日': trademark_detail['申请日'], '初审公告日': trademark_detail['初审公告日'],'注册公告日': trademark_detail['注册公告日'], '专用期限': trademark_detail['专用期限'], '专利代理机构': trademark_detail['专利代理机构'],'商标公告': trademark_detail['商标公告'], '商品服务项目': trademark_detail['商品服务项目']}})
                     i += 1
                 print(trademark)
-                subtitle['商标'] = trademark
+            subtitle['商标'] = trademark
 
         else:
             trademark_detail = {}
@@ -116,6 +116,7 @@ class AbilitySpider(scrapy.Spider):
 
         # # 专利信息
         totalnum = int(drive.find_element_by_xpath('//*[@id="patent"]/h4/span').get_attribute('textContent'))
+        patent = []
         if totalnum == 5:
             totalpage = 1
         elif totalnum%5 == 0:
@@ -128,7 +129,7 @@ class AbilitySpider(scrapy.Spider):
                 totalpage = 20
         lastpagenum = totalnum%5
         print(totalpage)
-        if totalpage != 1:
+        if totalpage > 1:
             for p in range(1, totalpage+1):
                 if p <= 3:
                     p = p
@@ -141,7 +142,6 @@ class AbilitySpider(scrapy.Spider):
                 time.sleep(2)
                 patent_detail = {}
                 i = 1
-                patent = []
                 tr_list = response.xpath('//*[@id="patent"]/table/tbody/tr')
                 trlenth = len(tr_list)
                 if lastpagenum == 0:
@@ -159,7 +159,7 @@ class AbilitySpider(scrapy.Spider):
                     patent.append({i: {'专利名': patent_detail['专利名'], '专利类型': patent_detail['专利类型'], '申请公布号': patent_detail['申请公布号'], '发布日期': patent_detail['发布日期'],'专利描述': patent_detail['专利描述'], '专利详情': patent_detail['专利详情']}})
                     i += 1
                 print(patent)
-                subtitle['专利'] = patent
+            subtitle['专利'] = patent
         else:
             patent_detail = {}
             i = 1
@@ -180,6 +180,7 @@ class AbilitySpider(scrapy.Spider):
 
         # 著作权
         totalnum = int(drive.find_element_by_xpath('//*[@id="copyRight"]/h4/span').get_attribute('textContent'))
+        copyRight = []
         if totalnum == 5:
             totalpage=1
         elif totalnum%5 == 0:
@@ -192,7 +193,7 @@ class AbilitySpider(scrapy.Spider):
                 totalpage = 20
         lastpagenum = totalnum%5
         print(totalpage)
-        if totalpage != 1:
+        if totalpage > 1:
             for p in range(1, totalpage+1):
                 if p <= 3:
                     p = p
@@ -205,7 +206,6 @@ class AbilitySpider(scrapy.Spider):
                 time.sleep(2)
                 copyRight_detail = {}
                 i = 1
-                copyRight = []
                 tr_list = response.xpath('//*[@id="copyRight"]/table/tbody/tr')
                 trlenth = len(tr_list)
                 if lastpagenum == 0:
@@ -223,7 +223,7 @@ class AbilitySpider(scrapy.Spider):
                     copyRight.append({i: {'作品名称': copyRight_detail['作品名称'], '登记号': copyRight_detail['登记号'], '类别': copyRight_detail['类别'], '创作完成日期': copyRight_detail['创作完成日期'],'登记日期': copyRight_detail['登记日期'], '首次发布日期': copyRight_detail['首次发布日期']}})
                     i += 1
                 print(copyRight)
-                subtitle['著作权'] = copyRight
+            subtitle['著作权'] = copyRight
         else:
             copyRight_detail = {}
             i = 1
@@ -244,6 +244,7 @@ class AbilitySpider(scrapy.Spider):
 
         # 软件著作权
         totalnum = int(drive.find_element_by_xpath('//*[@id="copyRightSoft"]/h4/span').get_attribute('textContent'))
+        copyRightSoft = []
         print(totalnum)
         if totalnum==5:
             totalpage=1
@@ -258,7 +259,7 @@ class AbilitySpider(scrapy.Spider):
         lastpagenum=totalnum%5
         print(lastpagenum)
         print(totalpage)
-        if totalpage != 1:
+        if totalpage > 1:
             for p in range(1, totalpage+1):
                 if p <= 3:
                     p = p
@@ -271,7 +272,6 @@ class AbilitySpider(scrapy.Spider):
                 time.sleep(2)
                 copyRightSoft_detail = {}
                 i = 1
-                copyRightSoft = []
                 tr_list = response.xpath('//*[@id="copyRightSoft"]/table/tbody/tr')
                 trlenth = len(tr_list)
                 if lastpagenum == 0:
@@ -290,7 +290,7 @@ class AbilitySpider(scrapy.Spider):
                     copyRightSoft.append({i: {'软件名称': copyRightSoft_detail['软件名称'], '登记号': copyRightSoft_detail['登记号'], '版本号': copyRightSoft_detail['版本号'], '分类号': copyRightSoft_detail['分类号'],'登记批准日期': copyRightSoft_detail['登记批准日期'], '软件简称': copyRightSoft_detail['软件简称']}})
                     i += 1
                 print(copyRightSoft)
-                subtitle['软件著作权'] = copyRightSoft
+            subtitle['软件著作权'] = copyRightSoft
         else:
             copyRightSoft_detail = {}
             i = 1
@@ -311,6 +311,7 @@ class AbilitySpider(scrapy.Spider):
 
         # 资质认证
         totalnum = int(drive.find_element_by_xpath('//*[@id="certificate"]/h4/span').get_attribute('textContent'))
+        certificate = []
         if totalnum == 5:
             totalpage = 1
         elif totalnum%5 == 0:
@@ -323,7 +324,7 @@ class AbilitySpider(scrapy.Spider):
                 totalpage = 20
         lastpagenum = totalnum % 5
         print(totalpage)
-        if totalpage!=1:
+        if totalpage > 1:
             for p in range(1,totalpage+1):
                 if p <= 3:
                     p=p
@@ -336,7 +337,6 @@ class AbilitySpider(scrapy.Spider):
                 time.sleep(2)
                 certificate_detail = {}
                 i = 1
-                certificate = []
                 tr_list = response.xpath('//*[@id="certificate"]/table/tbody/tr')
                 trlenth = len(tr_list)
                 if lastpagenum == 0:
@@ -358,7 +358,7 @@ class AbilitySpider(scrapy.Spider):
                     certificate.append({i: {'发证日期': certificate_detail['发证日期'], '证书类别': certificate_detail['证书类别'], '截止日期': certificate_detail['截止日期'],'证书编号': certificate_detail['证书编号'], '状态': certificate_detail['状态'], '备注': certificate_detail['备注']}})
                     i += 1
                 print(certificate)
-                subtitle['资质认证'] = certificate
+            subtitle['资质认证'] = certificate
         else:
             certificate_detail = {}
             i = 1
