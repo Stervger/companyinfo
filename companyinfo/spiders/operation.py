@@ -11,11 +11,11 @@ class OperationSpider(scrapy.Spider):
         'Host': 'www.qixin.com',
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:69.0) Gecko/20100101 Firefox/69.0',
     }
-    start_urls = {'https://www.qixin.com/operation/5cc0ecc5-0920-4e9e-ae89-d8d5043e3da0'}
+    start_urls = {'https://www.qixin.com/operation/0398b081-6676-4a91-856b-abbabaee5e70'}
 
     def parse(self, response):
         drive = webdriver.Chrome()
-        drive.get("https://www.qixin.com/operation/5cc0ecc5-0920-4e9e-ae89-d8d5043e3da0")
+        drive.get("https://www.qixin.com/operation/0398b081-6676-4a91-856b-abbabaee5e70")
         items = CompanyinfoItem()
 
         items['name'] = response.xpath('/html/body/div[2]/div/div/div/div/div[2]/div[1]/div[1]/h3/text()').extract()
@@ -55,11 +55,11 @@ class OperationSpider(scrapy.Spider):
         elif totalnum%5 == 0:
             totalpage = totalnum // 5
             if totalpage>20:
-                totalpage = 20
+                totalpage = 19
         else:
             totalpage = totalnum // 5 + 1
             if totalpage>20:
-                totalpage = 20
+                totalpage = 19
         lastpagenum=totalnum%5
         print(totalpage)
         if totalpage > 1:
@@ -148,11 +148,11 @@ class OperationSpider(scrapy.Spider):
         elif totalnum%5 == 0:
             totalpage = totalnum // 5
             if totalpage>20:
-                totalpage = 20
+                totalpage = 19
         else:
             totalpage = totalnum // 5 + 1
             if totalpage>20:
-                totalpage = 20
+                totalpage = 19
         lastpagenum=totalnum%5
         print(totalpage)
         if totalpage > 1:
@@ -220,11 +220,11 @@ class OperationSpider(scrapy.Spider):
         elif totalnum%5 == 0:
             totalpage = totalnum // 5
             if totalpage>20:
-                totalpage = 20
+                totalpage = 19
         else:
             totalpage = totalnum // 5 + 1
             if totalpage>20:
-                totalpage = 20
+                totalpage = 19
         lastpagenum=totalnum%5
         print(totalpage)
         if totalpage > 1:
@@ -280,11 +280,11 @@ class OperationSpider(scrapy.Spider):
         elif totalnum % 5 == 0:
             totalpage = totalnum // 5
             if totalpage > 20:
-                totalpage = 20
+                totalpage = 19
         else:
             totalpage = totalnum // 5 + 1
             if totalpage > 20:
-                totalpage = 20
+                totalpage = 19
         lastpagenum=totalnum%5
         print(totalpage)
         if totalpage > 1:
@@ -341,11 +341,11 @@ class OperationSpider(scrapy.Spider):
         elif totalnum % 10 == 0:
             totalpage = totalnum // 10
             if totalpage > 20:
-                totalpage = 20
+                totalpage = 19
         else:
             totalpage = totalnum // 10 + 1
             if totalpage > 20:
-                totalpage = 20
+                totalpage = 19
         lastpagenum = totalnum % 10
         print(totalpage)
         if totalpage > 1:

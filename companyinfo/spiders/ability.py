@@ -34,11 +34,11 @@ class AbilitySpider(scrapy.Spider):
         elif totalnum%5 == 0:
             totalpage = totalnum // 5
             if totalpage>20:
-                totalpage = 20
+                totalpage = 19
         else:
             totalpage = totalnum // 5 + 1
             if totalpage>20:
-                totalpage = 20
+                totalpage = 19
         lastpagenum = totalnum % 5
         print(totalpage)
         if totalpage > 1:
@@ -122,11 +122,11 @@ class AbilitySpider(scrapy.Spider):
         elif totalnum%5 == 0:
             totalpage = totalnum // 5
             if totalpage>20:
-                totalpage = 20
+                totalpage = 19
         else:
             totalpage = totalnum//5+1
             if totalpage>20:
-                totalpage = 20
+                totalpage = 19
         lastpagenum = totalnum%5
         print(totalpage)
         if totalpage > 1:
@@ -186,11 +186,11 @@ class AbilitySpider(scrapy.Spider):
         elif totalnum%5 == 0:
             totalpage = totalnum // 5
             if totalpage>20:
-                totalpage = 20
+                totalpage = 19
         else:
             totalpage = totalnum//5+1
             if totalpage>20:
-                totalpage = 20
+                totalpage = 19
         lastpagenum = totalnum%5
         print(totalpage)
         if totalpage > 1:
@@ -251,11 +251,11 @@ class AbilitySpider(scrapy.Spider):
         elif totalnum%5 == 0:
             totalpage = totalnum // 5
             if totalpage>20:
-                totalpage = 20
+                totalpage = 19
         else:
             totalpage = totalnum // 5 + 1
             if totalpage>20:
-                totalpage = 20
+                totalpage = 19
         lastpagenum=totalnum%5
         print(lastpagenum)
         print(totalpage)
@@ -317,11 +317,11 @@ class AbilitySpider(scrapy.Spider):
         elif totalnum%5 == 0:
             totalpage = totalnum // 5
             if totalpage>20:
-                totalpage = 20
+                totalpage = 19
         else:
             totalpage = totalnum // 5 + 1
             if totalpage>20:
-                totalpage = 20
+                totalpage = 19
         lastpagenum = totalnum % 5
         print(totalpage)
         if totalpage > 1:
