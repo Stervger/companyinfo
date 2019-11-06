@@ -13,7 +13,7 @@ class AbilitySpider(scrapy.Spider):
     start_urls = {'https://www.qixin.com/ability/534472fd-7d53-4958-8132-d6a6242423d8'}
 
     def parse(self, response):
-        drive = webdriver.Firefox()
+        drive = webdriver.Chrome()
         drive.get("https://www.qixin.com/ability/534472fd-7d53-4958-8132-d6a6242423d8")
         # time.sleep(20)
         items = CompanyinfoItem()
