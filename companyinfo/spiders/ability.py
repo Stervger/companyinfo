@@ -3,7 +3,7 @@ import scrapy
 import time
 from selenium import webdriver
 from companyinfo.items import CompanyinfoItem
-
+import scrapy.spidermiddlewares.httperror
 class AbilitySpider(scrapy.Spider):
     name = 'ability'
     headers = {
