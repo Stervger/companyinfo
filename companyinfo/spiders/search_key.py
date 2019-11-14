@@ -5,9 +5,7 @@ from companyinfo.items import CompanyinfoItem
 import re
 import json
 import codecs
-import scrapy.spidermiddlewares.httperror
 from selenium import webdriver
-# from Verification.DJ import unlock
 
 class QXBSpider(scrapy.Spider):
     name = 'search_key'
@@ -45,11 +43,9 @@ class QXBSpider(scrapy.Spider):
                if totalpage > 4:
                    totalpage = 3
            lastpagenum = totalnum % 10
-           i = 1
-           # print(totalpage)
            if totalpage > 1:
                for p in range(1, totalpage + 1):
                    page = driver.find_element_by_xpath('/html/body/div[2]/div[3]/div/div[1]/div[5]/div/div/nav/ul/li[{0}]/a'.format(p + 1))
                    driver.execute_script('arguments[0].click()', page)
-                   time.sleep(30)
+                   time.sleep(60)
                    driver.find_element_by_xpath('/html/body/div[2]/div[3]/div/div[1]/div[4]/div[2]/div[{0}]/div[2]/div[1]/div[1]/a'.format(i) for i in range(lastpagenum)).get_attribute('textContent')
