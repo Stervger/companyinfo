@@ -13,7 +13,7 @@ BOT_NAME = 'companyinfo'
 
 SPIDER_MODULES = ['companyinfo.spiders']
 NEWSPIDER_MODULE = 'companyinfo.spiders'
-
+HTTPERROR_ALLOWED_CODES = [403,401]
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:69.0) Gecko/20100101 Firefox/69.0'
